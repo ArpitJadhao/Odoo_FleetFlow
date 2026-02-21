@@ -1,0 +1,38 @@
+// Prisma schema for FleetFlow — fully local PostgreSQL auth
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─────────────────────────────────────────────────────────
+// ENUMS
+// ─────────────────────────────────────────────────────────
+
+enum UserRole {
+  manager
+  dispatcher
+  safety
+  finance
+}
+
+// ─────────────────────────────────────────────────────────
+// MODELS
+// ─────────────────────────────────────────────────────────
+
+/// Local users stored in PostgreSQL — no Supabase dependency.
+model User {
+  id           String   @id @default(uuid())
+  fullName     String
+  email        String   @unique
+  passwordHash String   // bcrypt hash — never store plaintext
+  role         UserRole @default(dispatcher)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("users")
+}

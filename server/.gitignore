@@ -1,0 +1,24 @@
+# ─────────────────────────────────────────
+# Server .gitignore
+# ─────────────────────────────────────────
+
+node_modules/
+dist/
+
+# Environment — NEVER commit secrets
+.env
+.env.local
+
+# Prisma generated
+node_modules/.prisma/
+
+# Logs
+*.log
+npm-debug.log*
+
+# TypeScript build info
+*.tsbuildinfo
+
+# OS
+.DS_Store
+Thumbs.db
